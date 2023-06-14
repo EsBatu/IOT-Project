@@ -5,24 +5,24 @@
 #include <Adafruit_SSD1306.h>
 
 const int relay = 0;
-const int ledr = 12;
-const int ledy = 13;
-const int ledg = 14;
+const int ledr = 12; //red led
+const int ledy = 13; //yellow led
+const int ledg = 14; //green led
 const int button = 15;
-int bstate = 0;
+int bstate = 0; //button state
 
 #define SCREEN_WIDTH 128 // OLED display width, in pixels
 #define SCREEN_HEIGHT 64 // OLED display height, in pixels
 
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
 
-// WiFi
+// WiFi 
 const char *ssid = "J71"; // Enter your WiFi name
 const char *password = "orchard@1234-1";  // Enter WiFi password
 
 // MQTT Broker
 const char *mqtt_broker = "broker.emqx.io";
-const char *topic = "tristan/pintu";
+const char *topic = "project/door";
 const char *mqtt_username = "emqx";
 const char *mqtt_password = "public";
 const int mqtt_port = 1883;
@@ -99,6 +99,7 @@ void callback(char *topic, byte *payload, unsigned int length)
 
 void loop() 
 {
+  // Reading button state to instant open the door
   bstate = digitalRead(button);
 
   if(bstate == HIGH)
@@ -117,6 +118,7 @@ void loop()
     client.loop();  
   }
 
+  // Try to connect to wifi for read value
   if (WiFi.status() != WL_CONNECTED)
   {
     wificonnect();
@@ -125,7 +127,8 @@ void loop()
   {
     client.loop();
   }
-  
+
+  // If Connect , then try to connect to MQTT Server
   if (!client.connected()) 
   {
     mqtt();
@@ -137,6 +140,7 @@ void loop()
 }
 
 
+// Connect to wifi function
 void wificonnect()
 {
   WiFi.begin(ssid, password);
@@ -161,6 +165,7 @@ void wificonnect()
 }
 
 
+// Connect to MQTT Server
 void mqtt()
 {
   //connecting to a mqtt broker
