@@ -1,3 +1,6 @@
 This is sample project Mixing 10 ball , and each ball equiped with NFC for reading.
 
+There are 2 example , one is using 1 NFC device , and the other is 2 NFC Device.
+2 NFC device is for read the ball twice after the first read , then for make sure , the second NFC device read again in the end of the process.
+
 The Concept is for selected ball that we have input in the terminal , activated the function to do something , in this case is trapped the selected ball in the acrylic box.
