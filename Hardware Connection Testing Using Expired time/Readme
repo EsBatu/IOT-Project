@@ -1,0 +1,2 @@
+This is my example for testing hardware in this case is connection to the boomgate and other hardware with the time limit , when the time reach its expired time , the device is automatically cannot be used for testing again.
+  If want to use again , simply inject the device again with the time set again.
